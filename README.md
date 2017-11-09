@@ -29,8 +29,14 @@ you can just do:
 $ wget -O - https://raw.githubusercontent.com/rzajac/esp-pin/master/install.sh | bash
 ```
 
-and start using it in your project. The example program `CMakeList.txt` file 
-would look something like:
+and start using it in your project. All the libraries that support this 
+are providing this way of installing. Which, for example, makes creating 
+example programs way easier.   
+
+## Example usage.
+
+The `CMakeList.txt` file of a program using [esp-pin](https://github.com/rzajac/esp-pin) 
+library would look something like this:
 
 ```
 # Bootstrap before call to project().
@@ -102,6 +108,12 @@ The result of running the script is following directory structure:
 **NOTE!** Before you can compile and flash ESP8266 programs you will have to 
 compile `esp-open-sdk` as standalone (`make STANDALONE=y`). See
 the documentation at [esp-open-sdk](git clone https://github.com/pfalcon/esp-open-sdk).   
+
+## Libraries.
+
+The list of supported libraries:
+
+- [esp_pin](https://github.com/rzajac/esp-pin) - GPIO pin manipulation, using RX pin as GPIO3.
 
 ## License.
 
