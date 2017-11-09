@@ -12,6 +12,7 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
+
 # Make sure ESPROOT environemt varaiabnle is set.
 if (NOT EXISTS $ENV{ESPROOT})
   message(FATAL_ERROR "The ESPROOT environment varaible is not set.")

@@ -15,7 +15,7 @@
 
 # Set path to CMake modules directory.
 get_filename_component(_ownDir "${CMAKE_CURRENT_LIST_FILE}" PATH)
-set(CMAKE_MODULE_PATH "${_ownDir}/Modules" ${CMAKE_MODULE_PATH})
+set(CMAKE_MODULE_PATH "${_ownDir}/Modules" ${CMAKE_MODULE_PATH} "${CMAKE_ROOT}/Modules")
 
 # Tee target platform description.
 set(CMAKE_SYSTEM_NAME Generic)
