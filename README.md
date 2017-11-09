@@ -29,8 +29,42 @@ you can just do:
 $ wget -O - https://raw.githubusercontent.com/rzajac/esp-pin/master/install.sh | bash
 ```
 
-and start using it in your project.
- 
+and start using it in your project. The example program `CMakeList.txt` file 
+would look something like:
+
+```
+# Bootstrap before call to project().
+include("$ENV{ESPROOT}/esp-cmake/ESP8266.bootstrap.cmake")
+
+cmake_minimum_required(VERSION 3.5)
+project(esp_test C)
+
+set(CMAKE_C_STANDARD 99)
+
+find_package(esp_sdo REQUIRED)
+
+# The directory containing global user_congih.h header file.
+set(ESP_USER_CONFIG_DIR "${CMAKE_CURRENT_LIST_DIR}/include")
+set(ESP_USER_CONFIG "${ESP_USER_CONFIG_DIR}/user_config.h")
+
+# Magic.
+include("${ESP_CMAKE_DIR}/ESP8266.cmake")
+
+# Test program.
+add_executable(esp_test src/main.c ${ESP_USER_CONFIG})
+
+target_include_directories(esp_test PUBLIC
+    ${esp_sdo_INCLUDE_DIRS}
+    ${ESP_USER_CONFIG_DIR})
+
+target_link_libraries(esp_test ${esp_sdo_LIBRARIES})
+
+esp_gen_exec_targets(esp_test)
+```
+
+In this example the `esp_sdo` library depends on `esp_gpio` library but because we 
+use `${esp_sdo_LIBRARIES}` and `${esp_sdo_INCLUDE_DIRS}` we don't have to care about it. 
+
 ## Directory structure.
 
 The root of the development environment is pointed by `$ESPROOT` environment 

@@ -15,7 +15,8 @@
 
 # Make sure ESPROOT environemt varaiabnle is set.
 if (NOT EXISTS $ENV{ESPROOT})
-  message(FATAL_ERROR "The ESPROOT environment varaible is not set.")
+  message("The ESPROOT environment varaible is not set. Using ${HOME}/esproot.")
+  set(ENV{ESPROOT} "${HOME}/esproot")
 endif()
 
 # Prevent in source builds.
