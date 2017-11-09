@@ -50,6 +50,13 @@ function(esp_gen_exec_targets TARGET_NAME)
       ${TARGET_NAME}
   )
 
+  add_custom_command(TARGET ${TARGET_NAME} POST_BUILD
+      COMMAND
+        ${ESPTOOL_PATH} elf2image $<TARGET_FILE:${TARGET_NAME}> -o ${CMAKE_CURRENT_BINARY_DIR}/
+      BYPRODUCTS
+        ${ESP_TARGET_FW1} ${ESP_TARGET_FW2}
+  )
+
   # Flash binary files to the device.
   add_custom_target(${TARGET_NAME}_flash
     COMMAND
