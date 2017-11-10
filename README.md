@@ -22,20 +22,19 @@ Aside form defined directory structure and shared CMake files defining
 how the code is build it also provides toolchain configuration and 
 ability to easily install libraries using example install scripts. 
 
-For example to use [esp-pin](https://github.com/rzajac/esp-pin) library
-you can just do:
+For example to use one of the libraries from [esp-ecl](https://github.com/rzajac/esp-ecl) 
+you just do:
 
 ```
-$ wget -O - https://raw.githubusercontent.com/rzajac/esp-pin/master/install.sh | bash
+$ wget -O - https://raw.githubusercontent.com/rzajac/esp-ecl/master/install.sh | bash
 ```
 
-and start using it in your project. All the libraries that support this 
-are providing this way of installing. Which, for example, makes creating 
-example programs way easier.   
+All the libraries that support this development environment are providing 
+this way of installing. Which, for example, makes creating programs way easier.   
 
 ## Example usage.
 
-The `CMakeList.txt` file of a program using [esp-pin](https://github.com/rzajac/esp-pin) 
+The `CMakeList.txt` file of a program using [esp-pin](https://github.com/rzajac/esp-ecl) 
 library would look something like this:
 
 ```
@@ -111,9 +110,7 @@ the documentation at [esp-open-sdk](git clone https://github.com/pfalcon/esp-ope
 
 ## Libraries.
 
-The list of supported libraries:
-
-- [esp_pin](https://github.com/rzajac/esp-pin) - GPIO pin manipulation, using RX pin as GPIO3.
+- [esp_ecl](https://github.com/rzajac/esp-ecl) - Collection of small but useful libraries.
 
 ## License.
 
