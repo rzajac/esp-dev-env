@@ -22,7 +22,7 @@ echo "Using ${ESPROOT} as ESPROOT."
 
 (
     cd ${ESPROOT}
-    mkdir lib include
+    mkdir lib include bin
 
     wget -O - https://raw.githubusercontent.com/rzajac/esp-dev-env/master/install.sh | bash
     if [ $? != 0 ]; then exit 1; fi

@@ -36,6 +36,7 @@ set(ESPTOOL_PATH "$ENV{ESPROOT}/esptool/esptool.py")
 # Install paths.
 set(CMAKE_INSTALL_PREFIX "$ENV{ESPROOT}" CACHE PATH "install prefix" FORCE)
 set(CMAKE_INSTALL_LIBDIR "lib")
+set(CMAKE_INSTALL_BINDIR "bin")
 set(CMAKE_INSTALL_INCLUDEDIR "include")
 
 # Setup toolchain.
