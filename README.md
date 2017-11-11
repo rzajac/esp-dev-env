@@ -225,9 +225,8 @@ See example script: [Findesp_sdo.cmake](https://github.com/rzajac/esp-ecl/blob/m
 
 ## Libraries Supporting This Build System. 
 
-- [esp_ecl](https://github.com/rzajac/esp-ecl) - Collection of small but useful 
-libraries.
-- [esp_prot](https://github.com/rzajac/esp-prot) - Protocols (I2C, OneWire).
+- [esp_ecl](https://github.com/rzajac/esp-ecl) - Collection of small but useful libraries.
+- [esp_prot](https://github.com/rzajac/esp-prot) - Low level protocol drivers (I2C, OneWire).
 
 ## License.
 
