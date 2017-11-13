@@ -67,7 +67,7 @@ function(esp_gen_exec_targets TARGET_NAME)
 endfunction()
 
 # Function generates library install rules.
-function(esp_gen_lib TARGET_NAME ESP_CMAKE_FIND_DIR)
+function(esp_gen_lib TARGET_NAME)
   install(TARGETS ${TARGET_NAME}
     ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
     PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})

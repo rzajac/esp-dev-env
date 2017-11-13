@@ -2,7 +2,7 @@
 
 The main purpose of this project is to define development environment 
 (directory structure and CMake scripts) which simplifies development and 
-build process when developing for ESP8266 microcontroller using NonOS SDK.   
+build process for ESP8266 microcontroller using NonOS SDK.   
 
 ## Motivation.
 
@@ -16,9 +16,9 @@ projects depending on that library and pull new changes. Even though I used
 git subtree it became cumbersome. 
 
 The obvious solution was to create build system and directory structure which 
-allows / simplifies code sharing. Projects using this strategy don't have all 
-the libraries as part of their repositories but instead use build system based 
-on CMake install and find them. The process of finding, configuring and 
+allows code sharing. Projects using this strategy don't have all the libraries 
+as part of their repositories but instead use build system based 
+on CMake to install and find them. The process of finding, configuring and 
 managing the build of the software is fully delegated to CMake plus few utility
 scripts which are described later in this document. 
 
@@ -27,11 +27,11 @@ environment work - starting with directory structure.
 
 ## Directory Structure.
 
-To simplify building more complicated programs the build scripts must know
-where to find compiler, linker, libraries, header files and supporting scripts.
-The well defined directory structure helps to standardize places where things 
-are located and searched for. Below is the representation of the directory
-structure used by the development environment. 
+To build program the build scripts must know where to find compiler, linker, 
+libraries, header files and supporting scripts. The well defined directory 
+structure helps to standardize places where things are located and searched 
+for. Below is the representation of the directory structure used by the 
+development environment. 
 
     $ESPROOT
      ├── bin         
@@ -57,18 +57,17 @@ Directory        | Function
 **include**      | The installed header files.
 **lib**          | The installed libraries.
 
-Each library which is part of this development environment must provide 
-way to install it's archives, header files in **lib** and **include** 
-directories respectively. 
+Each library must provide way to install it's archives, header files in **lib** 
+and **include** directories respectively. 
 
 ## Shared CMake scripts.
 
 Part of the development environment are also CMake scripts which provide
 ESP8266 toolchain, compiler and linker configuration as well as define 
-useful paths and helper functions which can be used in your programs to 
+useful paths and helper functions which can be used in your CMake scripts to 
 simplify configuration and build process. Below is the short description of 
-the scripts. For more details see the source which I made sure is well 
-documented.
+the scripts located in `esp-cmake` directory. For more details see the source 
+which I made sure is well documented.
 
 The [ESP8266.bootstrap.cmake](esp-cmake/ESP8266.bootstrap.cmake) defines the 
 toolchain, paths to various development environment directories as well as 
@@ -127,8 +126,8 @@ Also notice that in this example we use `esp_sdo` library which in turn
 depends on `esp_gpio` but because we use `${esp_sdo_LIBRARIES}` and 
 `${esp_sdo_INCLUDE_DIRS}` we don't have to care about it because all 
 libraries being part of this build system must provide CMake 
-`Find<lib_name>.cmake` files which define helpful variables. See below for more
-details.
+`Find<lib_name>.cmake` files which define helpful variables. See below 
+for more details.
 
 Using this build system to create / define library is even easier:
 
@@ -147,7 +146,7 @@ target_include_directories(esp_gpio PUBLIC
     ${ESP_USER_CONFIG_DIR})
 
 # Generate installation targets.
-esp_gen_lib(esp_gpio ${ESP_CMAKE_FIND_DIR})
+esp_gen_lib(esp_gpio)
 ```
 
 This will generate targets to compile and install the library in appropriate 
@@ -166,8 +165,8 @@ which will set up the directory structure, checkout
 [esp-open-sdk](https://github.com/pfalcon/esp-open-sdk) and 
 [esptool](https://github.com/espressif/esptool) repositories. 
 
-**NOTE** - it will not make / compile `esp-open-sdk`. You will have to do it 
-yourself by changing to `$HOME/esproot/esp-open-sdk` directory and issuing 
+**NOTE** - it will not make `esp-open-sdk`. You will have to do it 
+yourself by changing to `$ESPROOT/esp-open-sdk` directory and issuing 
 `make STANDALONE=y`. See the documentation at 
 [esp-open-sdk](https://github.com/pfalcon/esp-open-sdk).
 
@@ -195,14 +194,13 @@ $ wget -O - https://raw.githubusercontent.com/rzajac/esp-ecl/master/install.sh |
 
 which will compile the libraries being part of the 
 [esp-ecl](https://github.com/rzajac/esp-ecl) repository and install all needed
-files to appropriate places in `$ESPROOT` so other programs can easily find 
-and use them.
+files to appropriate places in `$ESPROOT`.
 
 This makes pulling new libraries to your project very fast and easy.
 
 ## External Library Requirements.
 
-All libraries which are part of this build system **must**:
+All libraries which are part of this build system **MUST**:
 
 - Provide shell installation script (see 
 [install.sh](https://github.com/rzajac/esp-ecl/blob/master/install.sh)).
@@ -227,6 +225,9 @@ See example script: [Findesp_sdo.cmake](https://github.com/rzajac/esp-ecl/blob/m
 
 - [esp_ecl](https://github.com/rzajac/esp-ecl) - Collection of small but useful libraries.
 - [esp_prot](https://github.com/rzajac/esp-prot) - Low level protocol drivers (I2C, OneWire).
+- [esp_drv](https://github.com/rzajac/esp-drv) - Various device drivers. 
+- [esp_cmd](https://github.com/rzajac/esp-cmd) - TCP command server library. 
+- [esp_det](https://github.com/rzajac/esp-det) - Detect and configure new devices on the network. 
 
 ## License.
 
