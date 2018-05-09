@@ -16,9 +16,12 @@
 # Script for initializing ESP8266 development environment.
 
 echo "Initializing up ESP8266 development environment."
-if [ "${ESPROOT}" == "" ]; then ESPROOT=$HOME/esproot; fi
+if [ "${ESPROOT}" == "" ]; then export ESPROOT=$HOME/esproot; fi
 if ! [ -d "${ESPROOT}" ]; then mkdir -p ${ESPROOT}; fi
 echo "Using ${ESPROOT} as ESPROOT."
+
+echo "export ESPROOT=$ESPROOT" >> ~/.profile
+echo "export PATH=\$ESPROOT/esp-open-sdk/xtensa-lx106-elf/bin:\$PATH" >> ~/.profile
 
 (
     cd ${ESPROOT}
@@ -33,9 +36,6 @@ echo "Using ${ESPROOT} as ESPROOT."
     git clone --recursive https://github.com/pfalcon/esp-open-sdk.git
     if [ $? != 0 ]; then exit 1; fi
 )
-
-echo "export ESPROOT=\$HOME/esproot" >> ~/.profile
-echo "export PATH=\$ESPROOT/esp-open-sdk/xtensa-lx106-elf/bin:\$PATH" >> ~/.profile
 
 echo
 echo "Directory structure and all the necessary software has been checked out."
