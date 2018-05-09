@@ -154,6 +154,18 @@ places. See "*External Library Requirements*" below for more details.
 
 ## Initializing Development Environment.
 
+Install necessary tools:
+
+```
+$ sudo apt -y install cmake gperf bison flex texinfo help2man
+```
+
+Install Python dev package for your Python version.
+
+```
+$ sudo apt -y install python-dev
+```
+
 To initialize development environment you may setup the directories by hand as 
 shown in "*Directory Structure*" above or use `init.sh` script:
 
