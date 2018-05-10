@@ -11,8 +11,8 @@ having problems with code dependencies between my programs and libraries.
 At some point it become really hard to keep self contained repositories up to 
 date when doing fixes or changes to libraries.
 
-Updating to latest version of the library meant I had to go to each of my 
-projects depending on that library and pull new changes. Even though I used 
+Updating to latest version of the library meant I had to go to each of the 
+projects using the library and pull new changes. Even though I used 
 git subtree it became cumbersome. 
 
 The obvious solution was to create build system and directory structure which 
@@ -25,10 +25,18 @@ scripts which are described later in this document.
 Below I'll try to give you detail overview of how all the parts of development 
 environment work - starting with directory structure. 
 
+## Prerequisites
+
+Building and flashing programs to ESP8266 requires following software.
+
+```
+$ sudo apt -y install build-essential cmake gperf bison flex texinfo help2man python-dev python-serial
+```
+
 ## Directory Structure.
 
-To build program the build scripts must know where to find compiler, linker, 
-libraries, header files and supporting scripts. The well defined directory 
+Build scripts must know where to find compiler, linker, libraries, header files 
+and supporting scripts. The well defined directory 
 structure helps to standardize places where things are located and searched 
 for. Below is the representation of the directory structure used by the 
 development environment. 
@@ -153,18 +161,6 @@ This will generate targets to compile and install the library in appropriate
 places. See "*External Library Requirements*" below for more details.
 
 ## Initializing Development Environment.
-
-Install necessary tools:
-
-```
-$ sudo apt -y install cmake gperf bison flex texinfo help2man
-```
-
-Install Python dev package for your Python version.
-
-```
-$ sudo apt -y install python-dev
-```
 
 To initialize development environment you may setup the directories by hand as 
 shown in "*Directory Structure*" above or use `init.sh` script:
