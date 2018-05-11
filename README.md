@@ -166,6 +166,7 @@ To initialize development environment you may setup the directories by hand as
 shown in "*Directory Structure*" above or use `init.sh` script:
 
 ```
+$ export ESPROOT=$HOME/esproot
 $ wget -O - https://raw.githubusercontent.com/rzajac/esp-dev-env/master/init.sh | bash
 ```
 
