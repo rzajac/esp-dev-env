@@ -30,7 +30,7 @@ environment work - starting with directory structure.
 Building and flashing programs to ESP8266 requires following software.
 
 ```
-$ sudo apt -y install build-essential cmake gperf bison flex texinfo help2man python-dev python-serial
+$ sudo apt -y install libtool-bin build-essential cmake gperf bison flex texinfo help2man python-dev python-serial
 ```
 
 ## Directory Structure.
