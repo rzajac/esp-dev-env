@@ -19,7 +19,7 @@ include_directories(${ESP_SDK_DIR}/include)
 # Setup compiler and linkert flags.
 set(ESP_SDK_LD_SCRIPT ${ESP_SDK_DIR}/ld/eagle.app.v6.ld)
 
-set(CMAKE_C_FLAGS "-Os -Wall -Wpointer-arith -Wundef -Werror -Wl,-EL")
+set(CMAKE_C_FLAGS "-Os -Wall -Wno-unused-function -Wpointer-arith -Wundef -Werror -Wl,-EL")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fno-inline-functions -nostdlib")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mlongcalls -mtext-section-literals")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -D__ets__ -DICACHE_FLASH")
