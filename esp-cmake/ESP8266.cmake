@@ -24,6 +24,10 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fno-inline-functions -nostdlib")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mlongcalls -mtext-section-literals")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -D__ets__ -DICACHE_FLASH")
 
+if($ENV{DEBUG_ON})
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DDEBUG_ON")
+endif()
+
 set(CMAKE_EXE_LINKER_FLAGS "-L${ESP_SDK_LIB_DIR} -T${ESP_SDK_LD_SCRIPT}")
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,--no-check-sections")
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -u call_user_start -Wl,-static -O2")
