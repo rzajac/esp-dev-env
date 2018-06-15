@@ -25,7 +25,7 @@ echo "export PATH=\$ESPROOT/esp-open-sdk/xtensa-lx106-elf/bin:\$PATH" >> ~/.prof
 
 (
     cd ${ESPROOT}
-    mkdir lib include bin
+    mkdir lib include bin src
 
     wget -O - https://raw.githubusercontent.com/rzajac/esp-dev-env/master/install.sh | bash
     if [ $? != 0 ]; then exit 1; fi
@@ -40,7 +40,11 @@ echo "export PATH=\$ESPROOT/esp-open-sdk/xtensa-lx106-elf/bin:\$PATH" >> ~/.prof
 echo
 echo "Directory structure and all the necessary software has been checked out."
 echo "Before you can compile and flash ESP8266 programs you must build "
-echo "standalone version of esp-open-sdk. Follow instructions at"
-echo "https://github.com/pfalcon/esp-open-sdk."
+echo "standalone version of esp-open-sdk:"
+echo
+echo "cd ${ESPROOT}/esp-open-sdk"
+echo "make"
+echo
+echo "Visit https://github.com/pfalcon/esp-open-sdk for more details."
 echo "Good luck!"
 echo

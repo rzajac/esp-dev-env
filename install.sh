@@ -23,41 +23,30 @@ ESP_CMAKE_REPO="https://github.com/rzajac/esp-dev-env"
 
 # No modifications below this comment unless you know what you're doing.
 
-# Remove temporary directory.
-function rm_tmp() {
-    echo "Removing ${TMP_DIR}"
-    rm -rf ${TMP_DIR}
-}
-
 # Check / set ESPROOT.
 if [ "${ESPROOT}" == "" ]; then ESPROOT=$HOME/esproot; fi
 if ! [ -d "${ESPROOT}" ]; then mkdir -p ${ESPROOT}; fi
 echo "Using ${ESPROOT} as ESPROOT"
 
 TMP_DIR=`mktemp -d`
+ESP_ENV_DST_DIR=${ESPROOT}/src/esp-dev-env
 ESP_CMAKE_DST_DIR=${ESPROOT}/esp-cmake
 
-if [ -d "${ESP_CMAKE_DST_DIR}" ]; then
-    echo "Directory ${ESP_CMAKE_DST_DIR} already exists. Will overwrite."
+echo "Cloning ${ESP_CMAKE_REPO} to ${ESP_ENV_DST_DIR}."
+if [ -d "${ESP_ENV_DST_DIR}" ]; then
+    echo "Directory ${ESP_ENV_DST_DIR} already exists. Will git reset."
+    (cd ${ESP_ENV_DST_DIR} && git fetch && git reset --hard origin master)
+else
+    git clone ${ESP_CMAKE_REPO} ${ESP_ENV_DST_DIR}
+    if [ $? != 0 ]; then
+        echo "Error: Cloning ${ESP_CMAKE_REPO} failed!"
+        rm_tmp
+        exit 1
+    fi
 fi
 
-echo "Installing ESP8266 CMake scripts."
-echo "Cloning ${ESP_CMAKE_REPO} to temporary directory."
-
-git clone ${ESP_CMAKE_REPO} ${TMP_DIR}
-if [ $? != 0 ]; then
-    echo "Error: Cloning ${ESP_CMAKE_REPO} failed!"
-    rm_tmp
-    exit 1
-fi
-
-echo "Installing ESP8266 CMake scripts to ${ESP_CMAKE_DST_DIR}"
+echo "Creating symlink ${ESP_CMAKE_DST_DIR}"
 rm -rf ${ESP_CMAKE_DST_DIR}
-cp -R ${TMP_DIR}/esp-cmake ${ESPROOT}
-if [ $? != 0 ]; then
-    echo "Error: Installing esp-cmake failed!"
-    rm_tmp
-    exit 1
-fi
+ln -s ${ESP_ENV_DST_DIR}/esp-cmake ${ESP_CMAKE_DST_DIR}
 
 exit 0
