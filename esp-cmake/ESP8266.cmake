@@ -77,4 +77,9 @@ function(esp_gen_lib TARGET_NAME)
     PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
   install(FILES "Find${TARGET_NAME}.cmake" DESTINATION "${ESP_MODULE_DIR}")
+
+  add_custom_command(TARGET ${TARGET_NAME} POST_BUILD
+      COMMAND
+        ${ESP_TOOLCHAIN_BIN_DIR}/xtensa-lx106-elf-strip --strip-unneeded $<TARGET_FILE:${TARGET_NAME}>
+  )
 endfunction()
