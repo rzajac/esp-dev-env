@@ -28,7 +28,6 @@ if [ "${ESPROOT}" == "" ]; then ESPROOT=$HOME/esproot; fi
 if ! [ -d "${ESPROOT}" ]; then mkdir -p ${ESPROOT}; fi
 echo "Using ${ESPROOT} as ESPROOT"
 
-TMP_DIR=`mktemp -d`
 ESP_ENV_DST_DIR=${ESPROOT}/src/esp-dev-env
 ESP_CMAKE_DST_DIR=${ESPROOT}/esp-cmake
 
@@ -40,7 +39,6 @@ else
     git clone ${ESP_CMAKE_REPO} ${ESP_ENV_DST_DIR}
     if [ $? != 0 ]; then
         echo "Error: Cloning ${ESP_CMAKE_REPO} failed!"
-        rm_tmp
         exit 1
     fi
 fi
