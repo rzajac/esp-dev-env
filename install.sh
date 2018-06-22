@@ -46,5 +46,6 @@ fi
 echo "Creating symlink ${ESP_CMAKE_DST_DIR}"
 rm -rf ${ESP_CMAKE_DST_DIR}
 ln -s ${ESP_ENV_DST_DIR}/esp-cmake ${ESP_CMAKE_DST_DIR}
+cp ${ESP_ENV_DST_DIR}/lib-install.sh  ${ESPROOT}/bin
 
 exit 0
