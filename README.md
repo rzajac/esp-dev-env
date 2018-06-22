@@ -180,7 +180,7 @@ which will set up the directory structure, checkout
 **NOTE** - it will not make `esp-open-sdk`. You will have to do it 
 yourself by changing to `$ESPROOT/esp-open-sdk` directory and issuing 
 `make STANDALONE=y`. See the documentation at 
-[esp-open-sdk](https://github.com/pfalcon/esp-open-sdk).
+[esp-open-sdk](https://github.com/pfalcon/esp-open-sdk) (before running `make` make sure you have python 2.7). 
 
 # Installing External Libraries.
 
