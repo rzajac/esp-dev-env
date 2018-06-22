@@ -19,7 +19,7 @@
 # Installer expects that esp-open-sdk is installed and compiled
 # as standalone version at $ESPROOT/esp-open-sdk
 
-ESP_CMAKE_REPO="https://github.com/rzajac/esp-dev-env"
+ESP_CMAKE_REPO="ssh://github.com/rzajac/esp-dev-env"
 
 # No modifications below this comment unless you know what you're doing.
 
