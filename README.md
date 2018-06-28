@@ -30,9 +30,24 @@ environment work - starting with directory structure.
 Building and flashing programs to ESP8266 requires following software.
 
 ```
-$ sudo apt -y install libtool-bin build-essential cmake make unrar-free autoconf automake libtool gcc g++ gperf \
-                      flex bison texinfo gawk ncurses-dev libexpat-dev python-dev python python-serial \
+$ sudo apt -y install libtool-bin build-essential cmake make unrar-free \
+                      autoconf automake libtool gcc g++ gperf \
+                      flex bison texinfo gawk ncurses-dev libexpat-dev \
+                      python-dev python python-serial \
                       sed unzip help2man wget bzip2
+```
+
+Besides packages installed with `apt` `esp-open-sdk` requires Python 2.7 
+to be installed. Check your version with:
+
+```
+$ python --version
+Python 2.7.15 :: Anaconda, Inc.
+```
+
+and then run:
+
+```
 $ pip install pyserial
 ```
 
@@ -180,7 +195,8 @@ which will set up the directory structure, checkout
 **NOTE** - it will not make `esp-open-sdk`. You will have to do it 
 yourself by changing to `$ESPROOT/esp-open-sdk` directory and issuing 
 `make STANDALONE=y`. See the documentation at 
-[esp-open-sdk](https://github.com/pfalcon/esp-open-sdk) (before running `make` make sure you have python 2.7). 
+[esp-open-sdk](https://github.com/pfalcon/esp-open-sdk) (before running `make` 
+make sure you have Python 2.7). 
 
 # Installing External Libraries.
 
