@@ -1,4 +1,4 @@
-# Copyright 2017 Rafal Zajac <rzajac@gmail.com>.
+# Copyright 2018 Rafal Zajac <rzajac@gmail.com>.
 #
 # Licensed under the Apache License, Version 2.0 (the "License"); you may
 # not use this file except in compliance with the License. You may obtain
@@ -12,7 +12,31 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-# This file is here only to shut up my IDE :)
 
+# Make sure ESPROOT environemt varaiabnle is set.
+if (NOT EXISTS $ENV{ESPROOT})
+    message("The ESPROOT environment varaible is not set. Using $ENV{HOME}/esproot.")
+    set(ENV{ESPROOT} "$ENV{HOME}/esproot")
+endif()
+
+# Bootstrap before call to project().
+include("$ENV{ESPROOT}/esp-cmake/ESP8266.bootstrap.cmake")
 cmake_minimum_required(VERSION 3.5)
-project(esp-dev-env)
+
+project(esp_dev_env C)
+set(CMAKE_C_STANDARD 99)
+
+# The directory containing global user_congih.h header file.
+set(ESP_USER_CONFIG_DIR "${CMAKE_CURRENT_LIST_DIR}/src")
+set(ESP_USER_CONFIG "${ESP_USER_CONFIG_DIR}/user_config.h")
+set(ESP_LIB_BIN_DIR "${CMAKE_CURRENT_LIST_DIR}/bin")
+
+# Magic.
+include("${ESP_CMAKE_DIR}/ESP8266.cmake")
+
+# Main application.
+# Must define esp_main executable target.
+add_subdirectory(src)
+
+set(CPACK_GENERATOR "TGZ")
+include(CPack)

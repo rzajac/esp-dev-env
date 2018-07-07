@@ -15,14 +15,14 @@
 
 # Make sure ESPROOT environemt varaiabnle is set.
 if (NOT EXISTS $ENV{ESPROOT})
-  message("The ESPROOT environment varaible is not set. Using ${HOME}/esproot.")
-  set(ENV{ESPROOT} "${HOME}/esproot")
-endif()
+    message("The ESPROOT environment varaible is not set. Using ${HOME}/esproot.")
+    set(ENV{ESPROOT} "${HOME}/esproot")
+endif ()
 
 # Prevent in source builds.
-if ( ${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR} )
-  message(FATAL_ERROR "In-source builds not allowed. Run cmake -H . -B build" )
-endif()
+if (${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})
+    message(FATAL_ERROR "In-source builds not allowed. Run cmake -H . -B build")
+endif ()
 
 # Set basic paths.
 set(ESP_CMAKE_DIR "$ENV{ESPROOT}/esp-cmake")

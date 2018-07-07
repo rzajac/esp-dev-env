@@ -24,9 +24,9 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fno-inline-functions -nostdlib")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mlongcalls -mtext-section-literals")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -D__ets__ -DICACHE_FLASH")
 
-if(DEFINED ENV{DEBUG_ON})
-  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DDEBUG_ON")
-endif()
+if (DEFINED ENV{DEBUG_ON})
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DDEBUG_ON")
+endif ()
 
 set(CMAKE_EXE_LINKER_FLAGS "-L${ESP_SDK_LIB_DIR} -T${ESP_SDK_LD_SCRIPT}")
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,--no-check-sections")
@@ -41,45 +41,45 @@ set(CMAKE_C_STANDARD_LIBRARIES "-lc -lgcc -lphy -lpp -lnet80211 -llwip -lwpa -lm
 
 # Genetare targets for creating firmwares and flashing.
 function(esp_gen_exec_targets TARGET_NAME)
-  set(ESP_TARGET_FW1 "${CMAKE_CURRENT_BINARY_DIR}/${ESP_FW1}.bin")
-  set(ESP_TARGET_FW2 "${CMAKE_CURRENT_BINARY_DIR}/${ESP_FW2}.bin")
+    set(ESP_TARGET_FW1 "${CMAKE_CURRENT_BINARY_DIR}/${ESP_FW1}.bin")
+    set(ESP_TARGET_FW2 "${CMAKE_CURRENT_BINARY_DIR}/${ESP_FW2}.bin")
 
-  # Create ESP8266 binary files.
-  add_custom_command(
-    OUTPUT
-      ${ESP_TARGET_FW1} ${ESP_TARGET_FW2}
-    COMMAND
-      ${ESPTOOL_PATH} elf2image $<TARGET_FILE:${TARGET_NAME}> -o ${CMAKE_CURRENT_BINARY_DIR}/
-    DEPENDS
-      ${TARGET_NAME}
-  )
-
-  add_custom_command(TARGET ${TARGET_NAME} POST_BUILD
-      COMMAND
-        ${ESPTOOL_PATH} elf2image $<TARGET_FILE:${TARGET_NAME}> -o ${CMAKE_CURRENT_BINARY_DIR}/
-      BYPRODUCTS
+    # Create ESP8266 binary files.
+    add_custom_command(
+        OUTPUT
         ${ESP_TARGET_FW1} ${ESP_TARGET_FW2}
-  )
+        COMMAND
+        ${ESPTOOL_PATH} elf2image $<TARGET_FILE:${TARGET_NAME}> -o ${CMAKE_CURRENT_BINARY_DIR}/
+        DEPENDS
+        ${TARGET_NAME}
+    )
 
-  # Flash binary files to the device.
-  add_custom_target(${TARGET_NAME}_flash
-    COMMAND
-      ${ESPTOOL_PATH} -p ${ESP_PORT} -b ${ESP_BAUD} write_flash ${ESP_FW1} ${ESP_TARGET_FW1} ${ESP_FW2} ${ESP_TARGET_FW2}
-    DEPENDS
-      ${ESP_TARGET_FW1} ${ESP_TARGET_FW2}
-  )
+    add_custom_command(TARGET ${TARGET_NAME} POST_BUILD
+        COMMAND
+        ${ESPTOOL_PATH} elf2image $<TARGET_FILE:${TARGET_NAME}> -o ${CMAKE_CURRENT_BINARY_DIR}/
+        BYPRODUCTS
+        ${ESP_TARGET_FW1} ${ESP_TARGET_FW2}
+        )
+
+    # Flash binary files to the device.
+    add_custom_target(${TARGET_NAME}_flash
+        COMMAND
+        ${ESPTOOL_PATH} -p ${ESP_PORT} -b ${ESP_BAUD} write_flash ${ESP_FW1} ${ESP_TARGET_FW1} ${ESP_FW2} ${ESP_TARGET_FW2}
+        DEPENDS
+        ${ESP_TARGET_FW1} ${ESP_TARGET_FW2}
+        )
 endfunction()
 
 # Function generates library install rules.
 function(esp_gen_lib TARGET_NAME)
-  install(TARGETS ${TARGET_NAME}
-    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+    install(TARGETS ${TARGET_NAME}
+        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+        PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
-  install(FILES "Find${TARGET_NAME}.cmake" DESTINATION "${ESP_MODULE_DIR}")
+    install(FILES "Find${TARGET_NAME}.cmake" DESTINATION "${ESP_MODULE_DIR}")
 
-  add_custom_command(TARGET ${TARGET_NAME} POST_BUILD
-      COMMAND
+    add_custom_command(TARGET ${TARGET_NAME} POST_BUILD
+        COMMAND
         ${ESP_TOOLCHAIN_BIN_DIR}/xtensa-lx106-elf-strip --strip-unneeded $<TARGET_FILE:${TARGET_NAME}>
-  )
+        )
 endfunction()

@@ -2,7 +2,7 @@
 
 The main purpose of this project is to define development environment 
 (directory structure and CMake scripts) which simplifies development and 
-build process for ESP8266 microcontroller using NonOS SDK.   
+build process for ESP8266 micro-controller using NonOS SDK.   
 
 ## Motivation.
 
@@ -225,6 +225,56 @@ which will compile the libraries being part of the
 files to appropriate places in `$ESPROOT`.
 
 This makes pulling new libraries to your project very fast and easy.
+
+## Building Hello Universe example.
+
+```
+$ cd ~/esproot/src/esp-dev-env/build
+$ cmake ..
+-- The C compiler identification is GNU 4.8.5
+-- Check for working C compiler: /home/user/esproot/esp-open-sdk/xtensa-lx106-elf/bin/xtensa-lx106-elf-gcc
+-- Check for working C compiler: /home/user/esproot/esp-open-sdk/xtensa-lx106-elf/bin/xtensa-lx106-elf-gcc -- works
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/user/esproot/src/esp-dev-env/build
+
+$ make hello_universe_flash
+Scanning dependencies of target hello_universe
+[ 33%] Building C object src/hello_universe/CMakeFiles/hello_universe.dir/main.c.o
+[ 66%] Linking C executable hello_universe.out
+esptool.py v2.4.1
+Creating image for ESP8266...
+[ 66%] Built target hello_universe
+Scanning dependencies of target hello_universe_flash
+esptool.py v2.4.1
+Serial port /dev/ttyUSB0
+Connecting........_
+Detecting chip type... ESP8266
+Chip is ESP8266EX
+Features: WiFi
+MAC: 5c:cf:7f:80:ce:79
+Uploading stub...
+Running stub...
+Stub running...
+Changing baud rate to 3000000
+Changed.
+Configuring flash size...
+Auto-detected Flash size: 1MB
+Compressed 27440 bytes to 20418...
+Wrote 27440 bytes (20418 compressed) at 0x00000000 in 0.1 seconds (effective 1596.4 kbit/s)...
+Hash of data verified.
+Compressed 200356 bytes to 147317...
+Wrote 200356 bytes (147317 compressed) at 0x00010000 in 1.5 seconds (effective 1046.8 kbit/s)...
+Hash of data verified.
+
+Leaving...
+Hard resetting via RTS pin...
+[100%] Built target hello_universe_flash
+```
 
 ## External Library Requirements.
 

@@ -1,2 +1,4 @@
 .idea/
 esp-cmake/Modules/Find*\.cmake
+build/*
+!build/.dummy
