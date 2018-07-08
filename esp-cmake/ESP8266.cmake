@@ -1,4 +1,4 @@
-# Copyright 2017 Rafal Zajac <rzajac@gmail.com>.
+# Copyright 2018 Rafal Zajac <rzajac@gmail.com>.
 #
 # Licensed under the Apache License, Version 2.0 (the "License"); you may
 # not use this file except in compliance with the License. You may obtain
@@ -73,10 +73,12 @@ endfunction()
 # Function generates library install rules.
 function(esp_gen_lib TARGET_NAME)
     install(TARGETS ${TARGET_NAME}
-        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-        PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT ${TARGET_NAME}
+        PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR} COMPONENT ${TARGET_NAME})
 
-    install(FILES "Find${TARGET_NAME}.cmake" DESTINATION "${ESP_MODULE_DIR}")
+    install(FILES
+        "Find${TARGET_NAME}.cmake" DESTINATION "${ESP_MODULE_DIR}"
+        COMPONENT ${TARGET_NAME})
 
     add_custom_command(TARGET ${TARGET_NAME} POST_BUILD
         COMMAND

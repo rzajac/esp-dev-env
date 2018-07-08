@@ -15,10 +15,13 @@
 
 project(hello_universe C)
 
-add_executable(${PROJECT_NAME} main.c ${ESP_USER_CONFIG})
+set(SOURCE_FILES main.c)
+set(HEADER_FILES)
+set(PRIVATE_HEADER_FILES)
 
-set(SOURCE_FILES main.c.c)
-set(HEADER_FILES ../user_config.h)
+add_executable(${PROJECT_NAME} ${SOURCE_FILES})
+
+message(${ESP_USER_CONFIG_DIR})
 
 target_include_directories(${PROJECT_NAME} PUBLIC ${ESP_USER_CONFIG_DIR})
 

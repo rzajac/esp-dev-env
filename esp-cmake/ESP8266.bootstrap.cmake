@@ -1,4 +1,4 @@
-# Copyright 2017 Rafal Zajac <rzajac@gmail.com>.
+# Copyright 2018 Rafal Zajac <rzajac@gmail.com>.
 #
 # Licensed under the Apache License, Version 2.0 (the "License"); you may
 # not use this file except in compliance with the License. You may obtain
@@ -38,10 +38,17 @@ set(CMAKE_INSTALL_PREFIX "$ENV{ESPROOT}" CACHE PATH "install prefix" FORCE)
 set(CMAKE_INSTALL_LIBDIR "lib")
 set(CMAKE_INSTALL_BINDIR "bin")
 set(CMAKE_INSTALL_INCLUDEDIR "include")
+set(ESP_LIB_BIN_DIR "$ENV{ESPROOT}/bin")
 
 # Setup toolchain.
 set(CMAKE_TOOLCHAIN_FILE "${ESP_CMAKE_DIR}/toolchain.ESP8266.cmake")
 mark_as_advanced(CMAKE_TOOLCHAIN_FILE)
+
+# Setup common includes.
+set(ESP_USER_CONFIG_DIR "$ENV{ESPROOT}/include")
+set(ESP_USER_CONFIG "${ESP_USER_CONFIG_DIR}/user_config.h")
+set(ESP_HEADER_DIR "$ENV{ESPROOT}/include")
+set(ESP_HEADER "${ESP_HEADER_DIR}/esp.h")
 
 # Programming port.
 set(ESP_PORT "/dev/ttyUSB0")
@@ -52,4 +59,3 @@ set(ESP_BAUD 3000000)
 # Firmware file names.
 set(ESP_FW1 "0x00000")
 set(ESP_FW2 "0x10000")
-

@@ -119,10 +119,6 @@ set(CMAKE_C_STANDARD 99)
 # Find package in development environment.
 find_package(esp_sdo REQUIRED)
 
-# The directory containing global user_congih.h header file.
-set(ESP_USER_CONFIG_DIR "${CMAKE_CURRENT_LIST_DIR}/include")
-set(ESP_USER_CONFIG "${ESP_USER_CONFIG_DIR}/user_config.h")
-
 # Magic.
 include("${ESP_CMAKE_DIR}/ESP8266.cmake")
 

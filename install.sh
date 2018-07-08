@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Copyright 2017 Rafal Zajac <rzajac@gmail.com>.
+# Copyright 2018 Rafal Zajac <rzajac@gmail.com>.
 #
 # Licensed under the Apache License, Version 2.0 (the "License"); you may
 # not use this file except in compliance with the License. You may obtain
@@ -46,6 +46,8 @@ fi
 echo "Creating symlink ${ESP_CMAKE_DST_DIR}"
 rm -rf ${ESP_CMAKE_DST_DIR}
 ln -s ${ESP_ENV_DST_DIR}/esp-cmake ${ESP_CMAKE_DST_DIR}
+ln -s ${ESP_ENV_DST_DIR}/src/include/esp.h ${ESPROOT}/include/esp.h
+ln -s ${ESP_ENV_DST_DIR}/src/include/user_config.h ${ESPROOT}/include/user_config.h
 cp ${ESP_ENV_DST_DIR}/lib-install.sh  ${ESPROOT}/bin
 
 exit 0

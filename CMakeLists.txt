@@ -26,11 +26,6 @@ cmake_minimum_required(VERSION 3.5)
 project(esp_dev_env C)
 set(CMAKE_C_STANDARD 99)
 
-# The directory containing global user_congih.h header file.
-set(ESP_USER_CONFIG_DIR "${CMAKE_CURRENT_LIST_DIR}/src")
-set(ESP_USER_CONFIG "${ESP_USER_CONFIG_DIR}/user_config.h")
-set(ESP_LIB_BIN_DIR "${CMAKE_CURRENT_LIST_DIR}/bin")
-
 # Magic.
 include("${ESP_CMAKE_DIR}/ESP8266.cmake")
 
