@@ -30,4 +30,8 @@
     #define UNUSED(x) ((void)(x))
 #endif
 
+#if defined(DEBUG_ON)
+    #define ESP_DEBUG(format, ...) os_printf("ESP DBG: " format "\n", ## __VA_ARGS__ )
+#endif
+
 #endif //ESP_H
