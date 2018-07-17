@@ -20,7 +20,7 @@
 #define BIT_RATE_74880 74880
 
 static void ICACHE_FLASH_ATTR
-user_code()
+start()
 {
     // No need for wifi for this example.
     wifi_station_disconnect();
@@ -92,5 +92,5 @@ user_init()
     // Initialize UART0.
     uart_div_modify(0, UART_CLK_FREQ / BIT_RATE_74880);
 
-    system_init_done_cb(user_code);
+    system_init_done_cb(start);
 }

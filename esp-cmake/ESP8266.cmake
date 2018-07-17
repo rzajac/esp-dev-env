@@ -51,23 +51,20 @@ function(esp_gen_exec_targets TARGET_NAME)
         COMMAND
         ${ESPTOOL_PATH} elf2image $<TARGET_FILE:${TARGET_NAME}> -o ${CMAKE_CURRENT_BINARY_DIR}/
         DEPENDS
-        ${TARGET_NAME}
-    )
+        ${TARGET_NAME})
 
     add_custom_command(TARGET ${TARGET_NAME} POST_BUILD
         COMMAND
         ${ESPTOOL_PATH} elf2image $<TARGET_FILE:${TARGET_NAME}> -o ${CMAKE_CURRENT_BINARY_DIR}/
         BYPRODUCTS
-        ${ESP_TARGET_FW1} ${ESP_TARGET_FW2}
-        )
+        ${ESP_TARGET_FW1} ${ESP_TARGET_FW2})
 
     # Flash binary files to the device.
-    add_custom_target(${TARGET_NAME}_flash
+    add_custom_command(TARGET ${TARGET_NAME} POST_BUILD
         COMMAND
         ${ESPTOOL_PATH} -p ${ESP_PORT} -b ${ESP_BAUD} write_flash ${ESP_FW1} ${ESP_TARGET_FW1} ${ESP_FW2} ${ESP_TARGET_FW2}
         DEPENDS
-        ${ESP_TARGET_FW1} ${ESP_TARGET_FW2}
-        )
+        ${ESP_TARGET_FW1} ${ESP_TARGET_FW2})
 endfunction()
 
 # Function generates library install rules.
@@ -82,6 +79,5 @@ function(esp_gen_lib TARGET_NAME)
 
     add_custom_command(TARGET ${TARGET_NAME} POST_BUILD
         COMMAND
-        ${ESP_TOOLCHAIN_BIN_DIR}/xtensa-lx106-elf-strip --strip-unneeded $<TARGET_FILE:${TARGET_NAME}>
-        )
+        ${ESP_TOOLCHAIN_BIN_DIR}/xtensa-lx106-elf-strip --strip-unneeded $<TARGET_FILE:${TARGET_NAME}>        )
 endfunction()
